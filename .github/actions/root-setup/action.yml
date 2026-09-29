@@ -131,6 +131,19 @@ runs:
           fi
         done
 
+    - name: Strip static from KSUN selinux_hide helpers (6.6.92+ compat)
+      if: inputs.flavor == 'next'
+      shell: bash
+      working-directory: ${{ github.workspace }}/kernel
+      run: |
+        set -euo pipefail
+        for f in KernelSU-Next/kernel/feature/selinux_hide.c; do
+          if [ -f "$f" ]; then
+            sed -i 's/^static int security_context_to_sid_with_policy/int security_context_to_sid_with_policy/g; s/^static int security_sid_to_context_with_policy/int security_sid_to_context_with_policy/g; s/^static void security_compute_av_user_with_policy/void security_compute_av_user_with_policy/g; s/^static void __nocfi security_compute_av_user_with_policy/void __nocfi security_compute_av_user_with_policy/g' "$f"
+            echo "[+] Stripped static from selinux_hide.c helpers (KSUN)"
+          fi
+        done
+
     - name: Disable multi-manager for ReSukiSU
       if: inputs.flavor == 'resukisu'
       uses: ./.github/actions/set-kernel-config
