@@ -1,0 +1,24 @@
+name: Patch GKI root setup 2
+on:
+  workflow_dispatch:
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch root-setup action
+        env:
+          B64: cCA9ICIuZ2l0aHViL2FjdGlvbnMvcm9vdC1zZXR1cC9hY3Rpb24ueW1sIgpzID0gb3BlbihwKS5yZWFkKCkKYW5jaG9yID0gIiAgICAtIG5hbWU6IERpc2FibGUgbXVsdGktbWFuYWdlciBmb3IgUmVTdWtpU1UiCm5ld19zdGVwID0gIiIiICAgIC0gbmFtZTogU3RyaXAgc3RhdGljIGZyb20gS1NVTiBzZWxpbnV4X2hpZGUgaGVscGVycyAoNi42LjkyKyBjb21wYXQpCiAgICAgIGlmOiBpbnB1dHMuZmxhdm9yID09ICduZXh0JwogICAgICBzaGVsbDogYmFzaAogICAgICB3b3JraW5nLWRpcmVjdG9yeTogJHt7IGdpdGh1Yi53b3Jrc3BhY2UgfX0va2VybmVsCiAgICAgIHJ1bjogfAogICAgICAgIHNldCAtZXVvIHBpcGVmYWlsCiAgICAgICAgZm9yIGYgaW4gS2VybmVsU1UtTmV4dC9rZXJuZWwvZmVhdHVyZS9zZWxpbnV4X2hpZGUuYzsgZG8KICAgICAgICAgIGlmIFsgLWYgIiRmIiBdOyB0aGVuCiAgICAgICAgICAgIHNlZCAtaSAncy9ec3RhdGljIGludCBzZWN1cml0eV9jb250ZXh0X3RvX3NpZF93aXRoX3BvbGljeS9pbnQgc2VjdXJpdHlfY29udGV4dF90b19zaWRfd2l0aF9wb2xpY3kvZzsgcy9ec3RhdGljIGludCBzZWN1cml0eV9zaWRfdG9fY29udGV4dF93aXRoX3BvbGljeS9pbnQgc2VjdXJpdHlfc2lkX3RvX2NvbnRleHRfd2l0aF9wb2xpY3kvZzsgcy9ec3RhdGljIHZvaWQgc2VjdXJpdHlfY29tcHV0ZV9hdl91c2VyX3dpdGhfcG9saWN5L3ZvaWQgc2VjdXJpdHlfY29tcHV0ZV9hdl91c2VyX3dpdGhfcG9saWN5L2c7IHMvXnN0YXRpYyB2b2lkIF9fbm9jZmkgc2VjdXJpdHlfY29tcHV0ZV9hdl91c2VyX3dpdGhfcG9saWN5L3ZvaWQgX19ub2NmaSBzZWN1cml0eV9jb21wdXRlX2F2X3VzZXJfd2l0aF9wb2xpY3kvZycgIiRmIgogICAgICAgICAgICBlY2hvICJbK10gU3RyaXBwZWQgc3RhdGljIGZyb20gc2VsaW51eF9oaWRlLmMgaGVscGVycyAoS1NVTikiCiAgICAgICAgICBmaQogICAgICAgIGRvbmUKCiIiIgphc3NlcnQgYW5jaG9yIGluIHMsICJhbmNob3IgbWlzc2luZyIKcyA9IHMucmVwbGFjZShhbmNob3IsIG5ld19zdGVwICsgYW5jaG9yKQpvcGVuKHAsICJ3Iikud3JpdGUocykKcHJpbnQoInBhdGNoZWQgb2ssIG5ld2xlbiIsIGxlbihzKSk=
+        run: |
+          echo "$B64" | base64 -d > /tmp/p.py
+          python3 /tmp/p.py
+      - name: Commit and push
+        run: |
+          git config user.name "Xiexiufyx"
+          git config user.email "1054534375@qq.com"
+          git add .github/actions/root-setup/action.yml
+          git commit -m "patch root-setup selinux_hide static"
+          git push
