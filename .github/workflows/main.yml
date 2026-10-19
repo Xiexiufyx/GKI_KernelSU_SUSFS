@@ -1,4 +1,5 @@
-name: Build Kernels
+# Xiexiufyx fork custom build workflow - KernelSU-Next latest + SUSFS
+name: Build Kernels (Xiexiufyx Fork)
 
 permissions:
   contents: write
